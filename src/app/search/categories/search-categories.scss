@@ -1,0 +1,40 @@
+.search-categories {
+    width: 100%;
+    box-sizing: border-box;
+    
+
+    * {
+        box-sizing: border-box;
+    }
+
+    font-family: arial;
+    font-size: 18px;
+    form {
+        display: flex;
+        flex-dirction: row;
+    }
+    .categories-results {
+        margin-top: 20px;
+        display: grid;
+        grid-gap: 50px 10px;
+        grid-template-columns: 20% 20% 20% 20% 20%;
+        width: calc(100% - (5 * 10px));
+        .category-item {
+            text-align: center;
+
+            .box-art {
+                overflow: hidden;
+                text-align: center;
+                img {
+                    display: inline-block;
+                }
+            }
+            .category-info {
+                width: 100%;
+                .name {
+                    color: #000;
+                }
+            }
+        }
+    }
+}

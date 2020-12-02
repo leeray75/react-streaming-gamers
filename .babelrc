@@ -1,0 +1,22 @@
+{
+    "compact": false,
+    "presets": [
+        [
+            "@babel/preset-env",
+            {
+                "targets":
+                {
+                    'browsers': ['last 2 versions', 'ie >= 10'],
+
+                },
+                "useBuiltIns": "entry",
+                corejs: 3
+            }
+        ],
+        '@babel/preset-react'
+    ],
+    "sourceMaps": true,
+    plugins: [
+        '@babel/transform-runtime'
+    ]
+}

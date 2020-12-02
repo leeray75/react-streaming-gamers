@@ -1,0 +1,14 @@
+# Dependency directory
+node_modules
+dist
+build
+
+*.zip
+*.tgz
+*.log
+# OS generated files
+.DS_Store
+
+# ignore properties files
+package-lock.json
+

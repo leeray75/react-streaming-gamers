@@ -1,0 +1,41 @@
+.users-follows {
+    width: 100%;
+    box-sizing: border-box;
+    
+
+    * {
+        box-sizing: border-box;
+    }
+
+    font-family: arial;
+    font-size: 18px;
+
+    .results {
+        margin-top: 20px;
+        display: grid;
+        grid-gap: 50px 10px;
+        grid-template-columns: 20% 20% 20% 20% 20%;
+        width: calc(100% - (5 * 10px));
+        .item {
+            text-align: center;
+            
+            .field {
+                .value,
+                .key {
+                    dsiplay: inline-block;
+                    vertical-align: middle;
+                }
+                .key {
+                    width: 30%;
+                    font-weight: 800;
+                }
+                .value {
+                    width: 70%;
+                    color: #00c;
+                }
+            }
+
+
+        }
+    }
+}
