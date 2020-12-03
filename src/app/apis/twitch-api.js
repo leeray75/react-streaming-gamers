@@ -30,8 +30,12 @@ export default class TwitchApi {
             return Promise.reject(e);
         }
     }
-    async getUser() {
-        const url = `https://api.twitch.tv/helix/users`;
+
+    async getUsers(user_ids = []) {
+        const ids = user_ids.map( id => {
+            return `id=${id}`;
+        })
+        const url = `https://api.twitch.tv/helix/users?${ids.join("&")}`;
         const settings = {
             "headers": {
                 'Content-Type': 'application/json',

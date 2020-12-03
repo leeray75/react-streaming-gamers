@@ -19,6 +19,12 @@ const mapDispatchToProps = dispatch => {
         },
         updateChannels(channels=[]) {
         	dispatch(SearchChannelActions.updateChannels(channels));
+        },
+        updateStreams: (streams) => {
+            dispatch(SearchChannelActions.updateStreams(streams))
+        },
+        updateUsers: (users) => {
+            dispatch(SearchChannelActions.updateUsers(users))
         }
     }
 };

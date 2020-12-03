@@ -1,44 +1,41 @@
 
 function getDefaultState() {
     const DEFAULT_STATE = {
-        "follows": null,
-        "users": [],
-        "streams": []
+        channel: null,
+        video: "",
+        collection: "",
+        player: null,
+        stream: null
     }
     return DEFAULT_STATE;
 }
+
+
+
 let PREV_STATE = {};
-const UsersFollows = (state = {}, action) => {
+const Player = (state = {}, action) => {
     let newState = {};
     
     const { type } = action;
 
     switch (type) {
-        case 'USERS:FOLLOWS:UPDATE':
-            const { follows } = action;
+        case 'PLAYER:CREATE':
+            const { player } = action;
 
             newState = { 
-                follows
+                player
             }
             break;
-        case 'USERS:FOLLOWS:USERS':
-            const { users } = action;
+        case 'PLAYER:LOAD:CHANNEL':
+            const { channel, stream } = action;
             newState = {
-                users
-            }
-            break;
-        case 'USERS:FOLLOWS:STREAMS':
-            const { streams } = action;
-            newState = {
-                streams
+                channel,
+                stream
             }
             break;
         case 'PLAYER:DESTROY':
-            newState = {
-                follows: null
-            }
+            newState = getDefaultState();
             break;
-
         default:
             newState = state;
     }
@@ -50,5 +47,5 @@ const UsersFollows = (state = {}, action) => {
     return newState;
 }
 
-export default UsersFollows;
+export default Player;
 

@@ -6,11 +6,12 @@ import { Provider } from 'react-redux';
 
 import Header from './common/header';
 import MainView from './main-view';
+import TwitchPlayer from '@leeray75/react-streaming-gamers/twitch-player';
 import AppReducers from './app.reducers';
 import SearchChannelsReducers from './search/channels/search-channels.reducers';
 import SearchCategoriesReducers from './search/categories/search-categories.reducers';
 import UsersFollowsReducers from './users/follows/users-follows.reducers';
-import StreamsReducers from './streams/streams.reducers';
+import PlayerReducers from './twitch-player/player.reducers';
 
 export default class Welcome extends Component {
     constructor(props) {
@@ -21,7 +22,7 @@ export default class Welcome extends Component {
             SearchChannels: SearchChannelsReducers,
             SearchCategories: SearchCategoriesReducers,
             UsersFollows: UsersFollowsReducers,
-            Streams: StreamsReducers
+            Player: PlayerReducers
         });
         this.store = createStore(reducers, {
             App: _merge({}, props)
@@ -36,6 +37,7 @@ export default class Welcome extends Component {
                 <Provider store={this.store}>
                     <Header />
                     <MainView />
+                    <TwitchPlayer />
                 </Provider>
             </div>
         )

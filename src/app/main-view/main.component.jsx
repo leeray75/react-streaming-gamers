@@ -21,7 +21,7 @@ class Main extends Component {
     componentDidMount() {
         const { props } = this;
         if(props.access_token != null && props.user == null) {
-            this.api.getUser().then( response => {
+            this.api.getUsers().then( response => {
                 this.props.updateUser(response.data[0]);
             })
         }

@@ -13,9 +13,7 @@
     "preinstall": "npm install rimraf; node ./scripts/clean-install.js; npm cache clear --force;",
     "prepack": "echo \"Error: Don't package this project!\" && exit 1",
     "start": "npm run clean; concurrently --kill-others \"node ./src/server/index.js\" \"npm run webpack:watch\"",
-    "version": "node ./scripts/version.js; git add ./gradle.properties; git commit -m \"update gradle.properties\"; echo \"VERSION: \" $npm_package_version",
     "webpack": "webpack --config webpack.config.js --color --progress",
-    "webpack:jenkins": "webpack --progress -p --optimize-minimize --config webpack.jenkins.config.js",
     "webpack:watch": "webpack --config webpack.dev.config.js --progress --color "
   },
   "repository": {

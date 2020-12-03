@@ -4,3 +4,13 @@ export const updateFollows = (follows=[]) => ({
 	follows
 })
 
+export const updateUsers = (users=[]) => ({
+	type: 'USERS:FOLLOWS:USERS',
+	users
+})
+
+export const updateStreams = (streams=[]) => ({
+	type: 'USERS:FOLLOWS:STREAMS',
+	streams
+})
+

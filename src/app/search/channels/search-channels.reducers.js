@@ -3,7 +3,9 @@ function getDefaultState() {
     const DEFAULT_STATE = {
         "query": "",
         "live": false,
-        "channels": []
+        "channels": [],
+        "users": [],
+        "streams": []
     }
     return DEFAULT_STATE;
 }
@@ -27,7 +29,21 @@ const SearchChannels = (state = {}, action) => {
                 return b.is_live === true ? 1 : -1;
             })
             newState = { 
-                channels: sortedChannels
+                channels: sortedChannels,
+                users: [],
+                streams: []
+            }
+            break;
+        case 'SEARCH:CHANNELS:USERS':
+            const { users } = action;
+            newState = {
+                users
+            }
+            break;
+        case 'SEARCH:CHANNELS:STREAMS':
+            const { streams } = action;
+            newState = {
+                streams
             }
             break;
         default:

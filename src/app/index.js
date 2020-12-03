@@ -2,6 +2,9 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import { CLIENT_ID, AUTH_URL } from './constants';
 import Welcome from './welcome';
+import include from './utils/include';
+
+include("https://player.twitch.tv/js/embed/v1.js");
 let appEl = document.getElementById('app');
 const { hash } = document.location;
 let props = {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TwitchApi from '@leeray75/react-streaming-gamers/apis/twitch-api';
-import Results from './results';
+import ChannelsGrid from '@leeray75/react-streaming-gamers/grids/channels';
 
 export default class SearchChannels extends Component {
     constructor(props) {
@@ -35,29 +35,33 @@ export default class SearchChannels extends Component {
         const { query, live } = this.state;
         this.props.onSubmit(query,live);
     }
-    async doSearch(query,live) {
-        if (this.props.access_token != null) {
-            try {
-                const response = await this.api.searchChannels(query,live);
-                console.log("[SearchChannels] searchChannels:", response);
-                return response;
-            } catch (e) {
-                console.error("[SearchChannels] Error:", e);
-                return Promise.reject(e);
-            }
-        }
-    }
+
     componentDidUpdate(prevProps) {
         console.log("[SearchChannels] Updated:", this.props);
-
-        if (prevProps.query !== this.props.query || prevProps.live !== this.props.live) {
-            if (this.props.query.trim() === "") {
-                this.props.updateChannels([]);
+        const { props } = this;
+        
+        if (prevProps.query !== props.query || prevProps.live !== props.live) {
+            if (props.query.trim() === "") {
+                props.updateChannels([]);
             } else {
-                this.doSearch(this.props.query, this.props.live).then(response => {
-                    this.props.updateChannels(response.data);
-                });
+                const { query, live } = props;
+                this.api.searchChannels(query,live).then( response => {
+                    props.updateChannels(response.data);
+                })
+
             }
+        }
+        else if( props.channels.length > 0 && props.users.length == 0) {
+            const user_ids = props.channels.map(channel => {
+                return channel.id
+            })
+            this.api.getStreams(user_ids).then(response => {
+                props.updateStreams(response.data);
+
+            });
+            this.api.getUsers(user_ids).then(response => {
+                props.updateUsers(response.data);
+            })
         }
     }
 
@@ -80,7 +84,7 @@ export default class SearchChannels extends Component {
                         <button>Submit</button>
                     </div>
                 </form>
-                <Results channels={this.props.channels} />
+                <ChannelsGrid users={this.props.users} streams={this.props.streams}/>
             </section>
         )
     }

@@ -9,3 +9,14 @@ export const updateChannels = (channels) => ({
 	channels
 })
 
+
+export const updateUsers = (users=[]) => ({
+	type: 'SEARCH:CHANNELS:USERS',
+	users
+})
+
+export const updateStreams = (streams=[]) => ({
+	type: 'SEARCH:CHANNELS:STREAMS',
+	streams
+})
+

@@ -1,0 +1,81 @@
+.twitch-player {
+    width: 800px;
+    max-width: 90vw;
+    margin: 0 auto 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    outline: 0;
+    background-color: #fff;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    font-family: arial;
+    font-size: 18px;
+    .player-container {
+        width: 100%;
+        position: relative;
+        padding-top: 56.25%;
+        iframe {
+        	position: absolute;
+        	top: 0;
+        	right: 0;
+        	left: 0;
+        	bottom: 0;
+        	width: 100%;
+        	height: 100%;
+        }
+    }
+
+    button {
+        &.cancel {
+            position: absolute;
+            top: 0;
+            right: 0;
+            transform: translate(50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            padding: 0;
+            margin: 0;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            svg {
+            	fill: #000;
+            	width: 100%;
+            	height: 100%;
+            	path {
+            		&:first-child {
+            			opacity: 1;
+            			fill: #fff;
+            		}
+            	}
+            }
+        }
+    }
+
+    .stream-info {
+    	width: 100%;
+    	text-align: center;
+    	.viewer-count {
+    		line-height: 1em;
+    		.icon {
+    			display: inline-block;
+    			vertical-align: middle;
+    			width: 24px;
+    			height: 24px;
+    			svg {
+    				fill: #00c;
+    			}
+    		}
+    		.count {
+    			display: inline-block;
+    			vertical-align: middle;
+    			margin-left: 0px;
+    			color: #00c;
+    		}
+    	}
+    }
+}
