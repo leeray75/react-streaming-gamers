@@ -46,14 +46,26 @@ class UsersFollows extends Component {
     }
     render() {
         let { users, streams } = this.props;
-
+        let liveIds = streams.map( stream => {
+            return stream.user_id;
+        })
+        const liveUsers = users.filter( user => {
+            return liveIds.includes(user.id);
+        })
+        const offlineUsers = users.filter( user => {
+            return !liveIds.includes(user.id);
+        })
         return (
             <section className="users-follows">
                 <h3>Get Users Follows</h3>
                 <p>Gets information on follow relationships between two Twitch users. 
                 This can return information like “who is qotrok following,” “who is following qotrok,” 
                 or “is user X following user Y.” Information returned is sorted in order, most recent follow first..</p>
-                <ChannelsGrid users={users} streams={streams}/>
+                <h4>Live Followed Channels</h4>
+                <ChannelsGrid users={liveUsers} streams={streams}/>
+                <hr />
+                <h4>Offline Followed Channels</h4>
+                <ChannelsGrid users={offlineUsers} streams={streams}/>
             </section>
         )
     }

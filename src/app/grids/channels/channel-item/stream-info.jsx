@@ -2,7 +2,7 @@ import React from 'react';
 import PeopleTwoToneIcon from '@material-ui/icons/PeopleTwoTone';
 
 function StreamInfo(props) {
-    console.log("[StreamInfo] props:", props);
+    //console.log("[StreamInfo] props:", props);
 
     const { stream } = props;
     if (stream == null) {

@@ -1,18 +1,21 @@
 import { connect } from 'react-redux';
-import Authentication from './authentication.component';
+import HeaderComponent from './header.component';
 import * as AppActions from '@leeray75/react-streaming-gamers/app.actions';
-
-
 const mapStateToProps = (state, ownProps) => {
-    //console.log("[MediaPlayer] mapStateToProps:",state);
     const props = Object.assign({}, ownProps, state.App)
 
     return props;
 };
+
 const mapDispatchToProps = dispatch => {
     return {
+        logout: (user) =>{
+            dispatch(AppActions.logout())
+        }
     }
 };
 
-const AuthenticationScreen = connect(mapStateToProps, mapDispatchToProps)(Authentication);
-export default AuthenticationScreen;
+const Header = connect(mapStateToProps,mapDispatchToProps)(HeaderComponent);
+export default Header;
+
+

@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
-import Main from './main.component';
+import Home from './home.page';
+import LoginPage from './login.page';
 import * as AppActions from '@leeray75/react-streaming-gamers/app.actions';
 const mapStateToProps = (state, ownProps) => {
     const props = Object.assign({
@@ -17,6 +18,6 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
-const MainView = connect(mapStateToProps,mapDispatchToProps)(Main);
+export const HomePage = connect(mapStateToProps,mapDispatchToProps)(Home);
+export { LoginPage } 
 
-export default MainView;

@@ -2,7 +2,7 @@
     margin-top: 20px;
     display: grid;
     grid-gap: 50px 10px;
-    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-columns: 20% 20% 20% 20% 20%;
     width: calc(100% - (4 * 10px));
 
     .item {
@@ -11,7 +11,7 @@
         a {
             display: inline-block;
             text-decoration: none;
-            max-width: 100%;
+            width: 100%;
         }
 
         &:hover {
@@ -26,17 +26,12 @@
             overflow: hidden;
             border: 2px solid #000;
             width: 100%;
+            padding-bottom: 100%;
             max-width: 300px;
             max-height: 300px;
             opacity: .5;
-
-            img {
-                object-fit: cover;
-                width: 300px;
-                height: 300px;
-                max-width: 100%;
-                max-height: 100%;
-            }
+            background-size: cover;
+            background-repeat: no-repeat;
         }
 
         .user-info {
@@ -83,6 +78,36 @@
                     vertical-align: middle;
                     margin-left: 0px;
                     color: #00c;
+                }
+            }
+        }
+
+        .links-container {
+            display: block;
+            vertical-align: middle;
+            line-height: 1em;
+            padding: 5px 0;
+
+            a.twitch-link {
+                display: inline-block;
+                text-decoration: none;
+                border: 1px solid #00c;
+                padding: 5px;
+                border-radius: 5px;
+                background-color: #00c;
+                width: auto;
+
+                .label,
+                .icon {
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+                .label {
+                    margin-left: 5px;
+                    color: #ddd;
+                }
+                svg {
+                    fill: #ddd;
                 }
             }
         }

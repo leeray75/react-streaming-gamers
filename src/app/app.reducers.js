@@ -1,29 +1,42 @@
 import _merge from 'lodash.merge';
 
+import TwitchPlayer from '@leeray75/react-streaming-gamers/twitch-player';
+import SearchChannelsReducers from './search/channels/search-channels.reducers';
+import SearchCategoriesReducers from './search/categories/search-categories.reducers';
+import UsersFollowsReducers from './users/follows/users-follows.reducers';
+import PlayerReducers from './twitch-player/player.reducers';
+import { combineReducers } from 'redux';
+import * as ActionTypes from './action-types.constants';
+import { CLIENT_ID } from './constants';
+
 function getDefaultState() {
     const DEFAULT_STATE = {
         "access_token": null,
         "scope": null,
         "token_type": null,
-        "client_id": null,
+        "client_id": CLIENT_ID,
+        "isAuthenticated": false,
         "user": null
     }
     return DEFAULT_STATE;
 }
 let PREV_STATE = {};
-const APP = (state = {}, action) => {
+const App = (state = {}, action) => {
     let newState = {};
     
     const { type, data } = action;
 
     switch (type) {
-        case 'APP:USER':
+        case ActionTypes.USER:
             newState = {
                 user: data
             }
             break;
-        case 'APP:AUTHENTICATE':
-            newState = { ...data }
+        case ActionTypes.AUTHENTICATE:
+            newState = data.access_token == null || data.access_token == "" ? { ...data, isAuthenticated: false } : { ...data, isAuthenticated: true }
+            break;
+        case ActionTypes.LOGOUT:
+            newState = getDefaultState();
             break;
         default:
             newState = state;
@@ -36,5 +49,12 @@ const APP = (state = {}, action) => {
     return newState;
 }
 
-export default APP;
+const AppReducers = combineReducers({
+    App,
+    SearchChannels: SearchChannelsReducers,
+    SearchCategories: SearchCategoriesReducers,
+    UsersFollows: UsersFollowsReducers,
+    Player: PlayerReducers
+});
+export default AppReducers;
 

@@ -1,5 +1,7 @@
 import FetchSettings from '@leeray75/react-streaming-gamers/apis/fetch-settings.decorator';
-const { encodeURIComponent, URL, URLSearchParams } = window;
+
+//import _merge from 'lodash.merge';
+const {  URL, URLSearchParams } = window;
 
 @FetchSettings
 class TwitchApi {
@@ -7,10 +9,36 @@ class TwitchApi {
         this.CLIENT_ID = CLIENT_ID;
         this.TOKEN = TOKEN;
     }
-
+    async logout() {
+        let { FETCH_SETTINGS } = this;
+        FETCH_SETTINGS = {
+            method: "POST",
+            "headers": {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            //credentials: 'include', // include, *same-origin, omit
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        }
+        let url = new URL(TwitchApi.EndPoints.REVOKE_ACCESS_TOKEN);
+        let searchParams = [
+            ['client_id', this.CLIENT_ID],
+            ["token", this.TOKEN]
+        ];
+        url.search = new URLSearchParams(searchParams).toString()
+        try {
+            const response = await fetch(url, FETCH_SETTINGS);
+            return response;
+        } catch (e) {
+            console.error("[Fetch] Error:", e)
+            return Promise.reject(e);
+        }
+    }
     // https://dev.twitch.tv/docs/api/reference#get-streams
     async getStreams(params = {}) {
-        const {FETCH_SETTINGS} = this;
+        const { FETCH_SETTINGS } = this;
         let url = new URL(TwitchApi.EndPoints.GET_STREAMS);
         const keys = Object.keys(params);
         let searchParams = [];
@@ -57,8 +85,8 @@ class TwitchApi {
         }
     }
     //https://dev.twitch.tv/docs/api/reference#get-users
-    async getUsers(params={}) {
-        const {FETCH_SETTINGS} = this;
+    async getUsers(params = {}) {
+        const { FETCH_SETTINGS } = this;
         let url = new URL(TwitchApi.EndPoints.GET_USERS);
         const keys = Object.keys(params);
         let searchParams = [];
@@ -92,9 +120,9 @@ class TwitchApi {
         }
     }
     // https://dev.twitch.tv/docs/api/reference#get-users-follows
-    async getUsersFollows(params={}) {
-        
-        const {FETCH_SETTINGS} = this;
+    async getUsersFollows(params = {}) {
+
+        const { FETCH_SETTINGS } = this;
         let url = new URL(TwitchApi.EndPoints.GET_USERS_FOLLOWS);
         const keys = Object.keys(params);
         let searchParams = [];
@@ -132,9 +160,9 @@ class TwitchApi {
             return Promise.reject(e);
         }
     }
-    
+
     async searchCategories(query) {
-        const {FETCH_SETTINGS} = this;
+        const { FETCH_SETTINGS } = this;
         let url = new URL(TwitchApi.EndPoints.SEARCH_CATEGORIES);
         const keys = Object.keys(params);
         let searchParams = [];
@@ -159,8 +187,8 @@ class TwitchApi {
             return Promise.reject(e);
         }
     }
-    async searchChannels(params={}) {
-        const {FETCH_SETTINGS} = this;
+    async searchChannels(params = {}) {
+        const { FETCH_SETTINGS } = this;
         let url = new URL(TwitchApi.EndPoints.SEARCH_CHANNELS);
         const keys = Object.keys(params);
         let searchParams = [];

@@ -1,10 +1,15 @@
+import * as ActionTypes from './action-types.constants';
 export const authenticate = (data) => ({
-	type: 'APP:AUTHENTICATE',
+	type: ActionTypes.AUTHENTICATE,
 	data
 })
 
 export const user = (data) => ({
-	type: 'APP:USER',
+	type: ActionTypes.USER,
 	data
 })
 
+
+export const logout = () => ({
+	type: ActionTypes.LOGOUT
+})

@@ -2,7 +2,7 @@ import React from 'react';
 import LiveTvIcon from '@material-ui/icons/LiveTv';
 import classNames from 'classnames';
 import StreamInfo from './stream-info';
-
+import TwitchLink from './twitch-link';
 function LiveIcon(props) {
     if (props.live === true) {
         return (
@@ -31,14 +31,16 @@ function ChannelItem(props) {
     })
     const url = `https://www.twitch.tv/${display_name}`;
     const title = isLive ? stream.title : "";
+    const thumbnailStyles = {
+        "backgroundImage": `url(${profile_image_url})`
+    }
     return (
         <div className={classes}>
             <div className="label">
                 <span className="value">{live}</span>
             </div>
             <a href={url} target="_blank" onClick={handleClick}>
-            <div className="thumbnail">
-                <img src={profile_image_url} />
+            <div className="thumbnail" style={thumbnailStyles}>
             </div>
             <div className="user-info">
                 <div>
@@ -50,6 +52,9 @@ function ChannelItem(props) {
             <StreamInfo stream={stream} />
             
             </a>
+            <div className="links-container">
+                <TwitchLink channel_name={display_name} type="app" />
+            </div>
         </div>
     )
 }
