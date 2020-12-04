@@ -13,10 +13,6 @@ const mapStateToProps = (state, ownProps) => {
 };
 const mapDispatchToProps = dispatch => {
     return {
-        onSubmit: (query="",live=false) => {
- 
-            dispatch(SearchChannelActions.submit(query,live))
-        },
         updateChannels(channels=[]) {
         	dispatch(SearchChannelActions.updateChannels(channels));
         },

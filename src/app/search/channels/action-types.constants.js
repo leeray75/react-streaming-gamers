@@ -1,0 +1,4 @@
+export const UPDATE = 'SEARCH:CHANNELS:UPDATE';
+export const USERS = 'SEARCH:CHANNELS:USERS';
+export const STREAMS = 'SEARCH:CHANNELS:STREAMS';
+

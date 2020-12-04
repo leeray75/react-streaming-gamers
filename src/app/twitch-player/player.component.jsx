@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import TwitchApi from '@leeray75/react-streaming-gamers/apis/twitch-api';
 import Modal from '@material-ui/core/Modal';
 import CancelTwoToneIcon from '@material-ui/icons/CancelTwoTone';
 import StreamInfo from './stream-info';
+import include from '@leeray75/react-streaming-gamers/utils/include';
+
+include("https://player.twitch.tv/js/embed/v1.js");
+
+
 export default class Player extends Component {
     constructor(props) {
         super(props);
@@ -11,19 +15,14 @@ export default class Player extends Component {
         console.log("[TwitchPlayer] props:", props);
         require('./twitch-player.scss');
     }
-    get api() {
-        if (this._api == null) {
-            const { client_id, access_token } = this.props;
-            this._api = new TwitchApi(client_id, access_token);
-        }
-        return this._api;
-    }
+
     changeChannel() {
         const { channel, player } = this.props;
         console.log("[TwitchPlayer] changeChannel:", channel);
         player.setChannel(channel.display_name);
     }
     loadPlayer() {
+        const { Twitch } = window;
         const { channel, createPlayer } = this.props;
 
         let playerNode = this.ref.current;

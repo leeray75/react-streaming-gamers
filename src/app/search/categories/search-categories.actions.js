@@ -1,10 +1,7 @@
-export const submit = (query) => ({
-	type: 'SEARCH:CATEGORIES:SUBMIT',
-	query
-})
+import * as ActionTypes from './action-types.constants';
 
 export const updateCategories = (categories) => ({
-	type: 'SEARCH:CATEGORIES:UPDATE',
+	type: ActionTypes.UPDATE,
 	categories
 })
 

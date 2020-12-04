@@ -30,9 +30,6 @@ function ChannelItem(props) {
         "live": isLive
     })
     const url = `https://www.twitch.tv/${display_name}`;
-    let thumbnail_url = isLive ? stream.thumbnail_url : profile_image_url;
-    thumbnail_url = thumbnail_url.replace("{width}","300");
-    thumbnail_url = thumbnail_url.replace("{height}","300");
     const title = isLive ? stream.title : "";
     return (
         <div className={classes}>
@@ -41,7 +38,7 @@ function ChannelItem(props) {
             </div>
             <a href={url} target="_blank" onClick={handleClick}>
             <div className="thumbnail">
-                <img src={thumbnail_url} />
+                <img src={profile_image_url} />
             </div>
             <div className="user-info">
                 <div>

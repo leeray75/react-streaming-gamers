@@ -1,22 +1,17 @@
-export const submit = (query,live) => ({
-	type: 'SEARCH:CHANNELS:SUBMIT',
-	query,
-	live
-})
-
+import * as ActionTypes from './action-types.constants';
 export const updateChannels = (channels) => ({
-	type: 'SEARCH:CHANNELS:UPDATE',
+	type: ActionTypes.UPDATE,
 	channels
 })
 
 
 export const updateUsers = (users=[]) => ({
-	type: 'SEARCH:CHANNELS:USERS',
+	type: ActionTypes.USERS,
 	users
 })
 
 export const updateStreams = (streams=[]) => ({
-	type: 'SEARCH:CHANNELS:STREAMS',
+	type: ActionTypes.STREAMS,
 	streams
 })
 

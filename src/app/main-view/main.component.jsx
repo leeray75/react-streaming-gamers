@@ -3,25 +3,20 @@ import Authentication from '@leeray75/react-streaming-gamers/authentication'
 import SearchChannels from '@leeray75/react-streaming-gamers/search/channels'
 import SearchCategories from '@leeray75/react-streaming-gamers/search/categories'
 import UsersFollows from '@leeray75/react-streaming-gamers/users/follows'
-import TwitchApi from '@leeray75/react-streaming-gamers/apis/twitch-api';
+import TwitchApi from '@leeray75/react-streaming-gamers/apis/twitch/twitch-api.decorator';
+
+@TwitchApi
 class Main extends Component {
     constructor(props) {
         super(props);
         console.log("[Main] props:", props);
 
     }
-    get api() {
-        if (this._api == null) {
-            const { client_id, access_token } = this.props;
-            this._api = new TwitchApi(client_id, access_token);
-        }
-        return this._api;
-    }
 
     componentDidMount() {
         const { props } = this;
         if(props.access_token != null && props.user == null) {
-            this.api.getUsers().then( response => {
+            this.TwitchApi.getUsers().then( response => {
                 this.props.updateUser(response.data[0]);
             })
         }

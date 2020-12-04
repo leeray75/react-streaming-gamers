@@ -1,28 +1,27 @@
 import React, { Component } from 'react';
-import TwitchApi from '@leeray75/react-streaming-gamers/apis/twitch-api';
+
 //import Results from './results';
 import ChannelsGrid from '@leeray75/react-streaming-gamers/grids/channels';
-export default class UsersFollows extends Component {
+import LoadUsers from '@leeray75/react-streaming-gamers/apis/twitch/load-users.decorator';
+
+@LoadUsers
+class UsersFollows extends Component {
     constructor(props) {
         super(props);
         require('./users-follows.scss');
         console.log("[UsersFollows] props:", props);
-
-        this.updated = false;
-        this.prevProps = props;
-
-    }
-    get api() {
-        if (this._api == null) {
-            const { client_id, access_token } = this.props;
-            this._api = new TwitchApi(client_id, access_token);
-        }
-        return this._api;
     }
 
+    get MAX_ITEMS() {
+        return 100;
+    }
     getFollows() {
-
-        this.api.getUsersFollowsFrom(this.props.user_id).then(response => {
+        console.log("[UsersFollows] api:", this.props.api);
+        const params = {
+            "from_ids": [this.props.user_id],
+            "first": this.MAX_ITEMS
+        }
+        this.TwitchApi.getUsersFollows(params).then(response => {
             this.props.updateFollows(response.data);
         })
     }
@@ -35,13 +34,7 @@ export default class UsersFollows extends Component {
             const user_ids = props.follows.map(follow => {
                 return follow.to_id;
             })
-            this.api.getStreams(user_ids).then(response => {
-                props.updateStreams(response.data);
-
-            });
-            this.api.getUsers(user_ids).then(response => {
-                props.updateUsers(response.data);
-            })
+            this.loadUsers(user_ids);
         }
 
     }
@@ -66,3 +59,4 @@ export default class UsersFollows extends Component {
     }
 
 }
+export default UsersFollows;

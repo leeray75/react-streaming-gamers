@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import TwitchApi from '@leeray75/react-streaming-gamers/apis/twitch-api';
 import ChannelsGrid from '@leeray75/react-streaming-gamers/grids/channels';
+import LoadUsers from '@leeray75/react-streaming-gamers/apis/twitch/load-users.decorator';
+import FormInputChange from '@leeray75/react-streaming-gamers/common/form-input-change.decorator';
 
-export default class SearchChannels extends Component {
+@LoadUsers
+@FormInputChange
+class SearchChannels extends Component {
     constructor(props) {
         super(props);
         require('./search-channels.scss');
@@ -11,57 +14,33 @@ export default class SearchChannels extends Component {
             query: '',
             live: false
         }
-
-    }
-    get api() {
-        if (this._api == null) {
-            const { client_id, access_token } = this.props;
-            this._api = new TwitchApi(client_id, access_token);
-        }
-        return this._api;
-    }
-    handleInputChange(e) {
-        const { target } = event;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-
-        this.setState({
-            [name]: value
-        });
     }
 
     handleSubmit(e) {
         e.preventDefault();
         const { query, live } = this.state;
-        this.props.onSubmit(query,live);
+        const params = {
+            query,
+            live_only: live,
+            first: this.MAX_ITEMS
+        }
+        this.TwitchApi.searchChannels(params).then( response => {
+            this.props.updateChannels(response.data);
+        }).catch(e => {
+            console.error("[SearchChannels] api error:",e);
+        });
     }
+
 
     componentDidUpdate(prevProps) {
         console.log("[SearchChannels] Updated:", this.props);
         const { props } = this;
-        
-        if (prevProps.query !== props.query || prevProps.live !== props.live) {
-            if (props.query.trim() === "") {
-                props.updateChannels([]);
-            } else {
-                const { query, live } = props;
-                this.api.searchChannels(query,live).then( response => {
-                    props.updateChannels(response.data);
-                })
 
-            }
-        }
-        else if( props.channels.length > 0 && props.users.length == 0) {
+        if (props.channels.length > 0 && props.users.length == 0) {
             const user_ids = props.channels.map(channel => {
                 return channel.id
             })
-            this.api.getStreams(user_ids).then(response => {
-                props.updateStreams(response.data);
-
-            });
-            this.api.getUsers(user_ids).then(response => {
-                props.updateUsers(response.data);
-            })
+            this.loadUsers(user_ids);
         }
     }
 
@@ -90,3 +69,5 @@ export default class SearchChannels extends Component {
     }
 
 }
+
+export default SearchChannels;

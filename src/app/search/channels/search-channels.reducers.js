@@ -1,8 +1,7 @@
-
+import * as ActionTypes from './action-types.constants';
 function getDefaultState() {
     const DEFAULT_STATE = {
-        "query": "",
-        "live": false,
+
         "channels": [],
         "users": [],
         "streams": []
@@ -16,14 +15,8 @@ const SearchChannels = (state = {}, action) => {
     const { type } = action;
 
     switch (type) {
-        case 'SEARCH:CHANNELS:SUBMIT':
-            const { query, live } = action;
-            newState = {
-                query,
-                live
-            }
-            break;
-        case 'SEARCH:CHANNELS:UPDATE':
+
+        case ActionTypes.UPDATE:
             const { channels } = action;
             const sortedChannels = channels.sort( (a,b) => {
                 return b.is_live === true ? 1 : -1;
@@ -34,13 +27,13 @@ const SearchChannels = (state = {}, action) => {
                 streams: []
             }
             break;
-        case 'SEARCH:CHANNELS:USERS':
+        case ActionTypes.USERS:
             const { users } = action;
             newState = {
                 users
             }
             break;
-        case 'SEARCH:CHANNELS:STREAMS':
+        case ActionTypes.STREAMS:
             const { streams } = action;
             newState = {
                 streams

@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import TwitchApi from '@leeray75/react-streaming-gamers/apis/twitch-api';
+import TwitchApi from '@leeray75/react-streaming-gamers/apis/twitch/twitch-api.decorator';
+import FormInputChange from '@leeray75/react-streaming-gamers/common/form-input-change.decorator';
 import Results from './results';
 
+@TwitchApi
+@FormInputChange
 export default class SearchCategories extends Component {
     constructor(props) {
         super(props);
@@ -12,51 +15,30 @@ export default class SearchCategories extends Component {
         }
 
     }
-    get api() {
-        if (this._api == null) {
-            const { client_id, access_token } = this.props;
-            this._api = new TwitchApi(client_id, access_token);
-        }
-        return this._api;
-    }
 
-    handleInputChange(e) {
-        const { target } = event;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-
-        this.setState({
-            [name]: value
-        });
-    }
     handleSubmit(e) {
         e.preventDefault();
-        this.props.onSubmit(this.state.query);
+        this.doSearch(this.state.query);
+        //this.props.onSubmit(this.state.query);
     }
-    async doSearch(query) {
-        if (this.props.access_token != null) {
-            try {
-                const response = await this.api.searchCategories(query);
-                console.log("[SearchCategories] searchChannels:", response);
-                return response;
-            } catch (e) {
-                console.error("[SearchCategories] Error:", e);
-                return Promise.reject(e);
+    doSearch(query) {
+        if (query.trim() === "") {
+            console.log("[SearchCategories] doSearch Blank:",query);
+            this.props.updateCategories([]);
+        } else {
+            console.log("[SearchCategories] doSearch:",query);
+            const params = {
+                query,
+                first: this.MAX_ITEMS
             }
+            this.TwitchApi.searchCategories(query).then(response => {
+                this.props.updateCategories(response.data);
+            });
         }
     }
     componentDidUpdate(prevProps) {
         console.log("[SearchCategories] Updated:", this.props);
 
-        if (prevProps.query != this.props.query) {
-            if (this.props.query.trim() === "") {
-                this.props.updateCategories([]);
-            } else {
-                this.doSearch(this.props.query).then(response => {
-                    this.props.updateCategories(response.data);
-                });
-            }
-        }
     }
 
     render() {

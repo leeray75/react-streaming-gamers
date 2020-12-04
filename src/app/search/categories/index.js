@@ -13,9 +13,6 @@ const mapStateToProps = (state, ownProps) => {
 };
 const mapDispatchToProps = dispatch => {
     return {
-        onSubmit: (query="") => {
-            dispatch(SearchCategoriesActions.submit(query))
-        },
         updateCategories(categories=[]) {
         	dispatch(SearchCategoriesActions.updateCategories(categories));
         }

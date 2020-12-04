@@ -4,11 +4,8 @@
         [
             "@babel/preset-env",
             {
-                "targets":
-                {
-                    'browsers': ['last 2 versions', 'ie >= 10'],
-
-                },
+                "targets": ">0.25%",
+                "bugfixes": true,
                 "useBuiltIns": "entry",
                 corejs: 3
             }
@@ -17,6 +14,12 @@
     ],
     "sourceMaps": true,
     plugins: [
-        '@babel/transform-runtime'
+        '@babel/transform-runtime',
+        [
+            "@babel/plugin-proposal-decorators",
+            {
+                "legacy": true
+            }
+        ]
     ]
 }

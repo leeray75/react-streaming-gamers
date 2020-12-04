@@ -21,15 +21,21 @@
         }
 
         .thumbnail {
+            position: relative;
             border-radius: 50%;
             overflow: hidden;
             border: 2px solid #000;
             width: 100%;
+            max-width: 300px;
+            max-height: 300px;
             opacity: .5;
 
             img {
                 object-fit: cover;
-                width: 100%;
+                width: 300px;
+                height: 300px;
+                max-width: 100%;
+                max-height: 100%;
             }
         }
 
