@@ -13,8 +13,8 @@ const mapStateToProps = (state, ownProps) => {
 };
 const mapDispatchToProps = dispatch => {
     return {
-        updateChannels(channels=[]) {
-        	dispatch(SearchChannelActions.updateChannels(channels));
+        updateChannels(channels=[], query="", live=false) {
+        	dispatch(SearchChannelActions.updateChannels(channels,query,live));
         },
         updateStreams: (streams) => {
             dispatch(SearchChannelActions.updateStreams(streams))

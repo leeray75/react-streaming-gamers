@@ -23,14 +23,16 @@ const Player = (state = {}, action) => {
             const { player } = action;
 
             newState = { 
-                player
+                player,
+                channel: action.channel,
+                stream: action.stream
             }
             break;
         case ActionTypes.LOAD_CHANNEL:
             const { channel, stream } = action;
             newState = {
-                channel,
-                stream
+                channel: action.channel,
+                stream: action.stream
             }
             break;
         case ActionTypes.UPDATE_STREAM:
@@ -45,7 +47,7 @@ const Player = (state = {}, action) => {
             newState = state;
     }
     if (newState !== PREV_STATE) {
-        newState = Object.assign(getDefaultState(),PREV_STATE,newState);
+        newState = Object.assign(getDefaultState(),PREV_STATE,newState,{actionType: type});
     }
     //console.log("[MediaPlayer Reducers] newState",newState);
     PREV_STATE = newState;

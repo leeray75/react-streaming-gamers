@@ -7,7 +7,7 @@ import {
     Link
 } from "react-router-dom";
 
-import { HomePage, LoginPage } from '@leeray75/react-streaming-gamers/pages';
+import { HomePage, LoginPage, SearchPage } from '@leeray75/react-streaming-gamers/pages';
 import Header from '@leeray75/react-streaming-gamers/common/header';
 
 
@@ -26,6 +26,9 @@ export default class AppRouter extends Component {
                 <Switch>
                     <Route path="/login">
                         {isAuthenticated ? <Redirect to="/home" /> : <LoginPage auth-url={AUTH_URL} />}
+                    </Route>
+                    <Route path="/search">
+                        {isAuthenticated ? <SearchPage /> : <Redirect to="/login" />}
                     </Route>
                     <Route path="/home">
                         {isAuthenticated ? <HomePage /> : <Redirect to="/login" />}

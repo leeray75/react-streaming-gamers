@@ -4,10 +4,10 @@ import SearchCategories from '@leeray75/react-streaming-gamers/search/categories
 import LoadCurrentUser from '@leeray75/react-streaming-gamers/apis/twitch/load-current-user.decorator';
 
 @LoadCurrentUser 
-class Home extends Component {
+class SearchPage extends Component {
     constructor(props) {
         super(props);
-        console.log("[Main] props:", props);
+        console.log("[SearchPage] props:", props);
 
     }
 
@@ -20,7 +20,7 @@ class Home extends Component {
         }
     }
     componentDidUpdate(prevProps) {
-        console.log("[Main] Updated:",this.props);
+        console.log("[SearchPage] Updated:",this.props);
         const { props } = this;
 
     }
@@ -37,4 +37,4 @@ class Home extends Component {
 
 }
 
-export default Home;
+export default SearchPage;

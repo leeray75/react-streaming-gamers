@@ -1,8 +1,12 @@
 import * as ActionTypes from './action-types.constants';
+import * as WindowEventsActionTypes from '@leeray75/react-streaming-gamers/window-events/action-types.constants';
+import * as PlayerActionTypes from '@leeray75/react-streaming-gamers/twitch-player/action-types.constants';
+
 function getDefaultState() {
     const DEFAULT_STATE = {
-
-        "channels": [],
+        "query": "",
+        "live": false,
+        "channels": null,
         "users": [],
         "streams": []
     }
@@ -16,27 +20,35 @@ const SearchChannels = (state = {}, action) => {
 
     switch (type) {
 
-        case ActionTypes.UPDATE:
-            const { channels } = action;
+        case ActionTypes.UPDATE_CHANNELS:
+            const { query, channels, live } = action;
             const sortedChannels = channels.sort( (a,b) => {
                 return b.is_live === true ? 1 : -1;
             })
             newState = { 
+                query,
+                live,
                 channels: sortedChannels,
-                users: [],
-                streams: []
             }
             break;
-        case ActionTypes.USERS:
+        case ActionTypes.UPDATE_USERS:
             const { users } = action;
             newState = {
                 users
             }
             break;
-        case ActionTypes.STREAMS:
+        case ActionTypes.UPDATE_STREAMS:
             const { streams } = action;
             newState = {
                 streams
+            }
+            break;
+        // Reload Followers
+        case WindowEventsActionTypes.FOCUS:
+        case PlayerActionTypes.DESTROY:
+            newState = {
+                query: "",
+                channels: null
             }
             break;
         default:

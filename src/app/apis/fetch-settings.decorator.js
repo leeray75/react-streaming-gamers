@@ -4,6 +4,7 @@ const Decorator =
             Object.defineProperty(Target.prototype, 'FETCH_SETTINGS', {
                 get: function() {
                     return {
+                        "method": "GET",
                         "headers": {
                             'Content-Type': 'application/json',
                             'client-id': this.CLIENT_ID,

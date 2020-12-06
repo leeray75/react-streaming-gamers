@@ -1,7 +1,9 @@
 import * as ActionTypes from './action-types.constants';
-export const createPlayer = (player = null) => ({
+export const createPlayer = (player = null, channel = null, stream = null) => ({
 	type: ActionTypes.CREATE,
-	player
+	player,
+	channel,
+	stream
 })
 
 export const destroyPlayer = () => ({

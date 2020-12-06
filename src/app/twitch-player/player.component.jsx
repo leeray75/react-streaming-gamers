@@ -23,7 +23,7 @@ export default class Player extends Component {
     }
     loadPlayer() {
         const { Twitch } = window;
-        const { channel, createPlayer } = this.props;
+        const { channel, createPlayer, stream } = this.props;
 
         let playerNode = this.ref.current;
 
@@ -38,7 +38,7 @@ export default class Player extends Component {
         player.setVolume(1);
         console.log("[TwitchPlayer] Create:", player);
         window.player = player;
-        createPlayer(player);
+        createPlayer(player, channel, stream);
     }
 
     handleCloseModal(e) {
@@ -72,7 +72,7 @@ export default class Player extends Component {
         const { props } = this;
         const { channel, stream } = props;
 
-        const open = props.channel != null;
+        const open = props.player != null;
 
 
         return (

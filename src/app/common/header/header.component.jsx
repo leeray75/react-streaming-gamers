@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-
+import {
+  Link
+} from "react-router-dom";
 class Header extends Component {
 	constructor(props) {
 		super(props);
@@ -21,7 +23,13 @@ class Header extends Component {
 		return(
 			<header>
 				<section>
-					<button onClick={this.handleClick.bind(this)}>{buttonLabel}</button>
+					<span className="home">
+						<Link to="/home">Home</Link>
+					</span>
+					<button onClick={this.handleClick.bind(this)}>{buttonLabel}</button> 
+					<span className="search">
+						<Link to="/search">Search</Link>
+					</span>
 				</section>
 				<h1>Welcome to React Streaming Gamers</h1>
 			</header>

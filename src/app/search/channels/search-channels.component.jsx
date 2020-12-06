@@ -11,40 +11,54 @@ class SearchChannels extends Component {
         require('./search-channels.scss');
         console.log("[SearchChannels] props:", props);
         this.state = {
-            query: '',
-            live: false
+            query: props.query,
+            live: props.live
         }
     }
 
     handleSubmit(e) {
         e.preventDefault();
+        this.updateChannels();
+    }
+    updateChannels() {
+        console.log("[SearchChannels] Update Channels:", this.state);
         const { query, live } = this.state;
-        const params = {
-            query,
-            live_only: live,
-            first: this.MAX_ITEMS
+        if (query.trim().length > 0) {
+            const params = {
+                query,
+                live_only: live,
+                first: this.MAX_ITEMS
+            }
+            this.TwitchApi.searchChannels(params).then(response => {
+                this.props.updateChannels(response.data, query, live);
+            }).catch(e => {
+                console.error("[SearchChannels] api error:", e);
+            });
         }
-        this.TwitchApi.searchChannels(params).then( response => {
-            this.props.updateChannels(response.data);
-        }).catch(e => {
-            console.error("[SearchChannels] api error:",e);
-        });
     }
 
-
-    componentDidUpdate(prevProps) {
-        console.log("[SearchChannels] Updated:", this.props);
+    componentDidUpdate(prevProps,prevState) {
+        console.log("[SearchChannels] Updated:", this.props, " : ", prevProps);
+        console.log("[SearchChannels] Compare query:",this.props.channels !== prevProps.channels && this.props.query != prevProps.query);
         const { props } = this;
-
-        if (props.channels.length > 0 && props.users.length == 0) {
+        if (props.channels == null && this.state.query == prevState.query) {
+            this.updateChannels();
+        } else if (props.channels != null && props.channels !== prevProps.channels && this.props.query != prevProps.query) {
             const user_ids = props.channels.map(channel => {
                 return channel.id
             })
             this.loadUsers(user_ids);
         }
     }
+    componentWillUnmount() {
 
+    }
     render() {
+        let { users, streams } = this.props;
+        if(this.state.query.trim() == "") {
+            users = [];
+            streams = [];
+        }
         return (
             <section className="search-channels">
                 <h3>Search Channels</h3>
@@ -63,7 +77,7 @@ class SearchChannels extends Component {
                         <button>Submit</button>
                     </div>
                 </form>
-                <ChannelsGrid users={this.props.users} streams={this.props.streams}/>
+                <ChannelsGrid users={users} streams={streams}/>
             </section>
         )
     }

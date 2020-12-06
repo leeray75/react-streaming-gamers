@@ -11,8 +11,8 @@ const mapStateToProps = (state, ownProps) => {
 };
 const mapDispatchToProps = dispatch => {
     return {
-        createPlayer: (player) =>{
-            dispatch(PlayerActions.createPlayer(player))
+        createPlayer: (player, channel, stream) =>{
+            dispatch(PlayerActions.createPlayer(player, channel, stream))
         },
         destroyPlayer: () => {
             dispatch(PlayerActions.destroyPlayer())

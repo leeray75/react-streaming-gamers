@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import Home from './home.page';
+import Search from './search.page';
 import LoginPage from './login.page';
 import * as AppActions from '@leeray75/react-streaming-gamers/app.actions';
 const mapStateToProps = (state, ownProps) => {
@@ -19,5 +20,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export const HomePage = connect(mapStateToProps,mapDispatchToProps)(Home);
+export const SearchPage = connect(mapStateToProps,mapDispatchToProps)(Search);
 export { LoginPage } 
 
