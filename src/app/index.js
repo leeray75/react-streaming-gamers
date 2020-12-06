@@ -7,6 +7,7 @@ let appEl = document.getElementById('app');
 const { hash } = document.location;
 
 let props = {};
+console.log("[Local Storage]:",JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY)));
 if(hash.startsWith('#access_token=')) {
 	const { localStorage } = window;
 	const hashItems = (hash.replace("#access_token=","access_token=")).split("&");
@@ -18,6 +19,7 @@ if(hash.startsWith('#access_token=')) {
 		props[key] = value;
 	})
 	localStorage.setItem(AUTH_STORAGE_KEY,JSON.stringify(props));
+	console.log("[Local Storage] Add Auth:",JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY)));
 }
 else if(localStorage.getItem(AUTH_STORAGE_KEY) != null) {
 

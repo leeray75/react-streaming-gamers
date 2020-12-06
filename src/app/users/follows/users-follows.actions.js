@@ -1,16 +1,17 @@
+import * as FollowsActions from './action-types.constants';
 
 export const updateFollows = (follows=[]) => ({
-	type: 'USERS:FOLLOWS:UPDATE',
+	type: FollowsActions.UPDATE_FOLLOWS,
 	follows
 })
 
 export const updateUsers = (users=[]) => ({
-	type: 'USERS:FOLLOWS:USERS',
+	type: FollowsActions.UPDATE_USERS,
 	users
 })
 
 export const updateStreams = (streams=[]) => ({
-	type: 'USERS:FOLLOWS:STREAMS',
+	type: FollowsActions.UPDATE_STREAMS,
 	streams
 })
 

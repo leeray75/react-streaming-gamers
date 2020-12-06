@@ -1,0 +1,2 @@
+export const FOCUS = 'WINDOW:EVENT:ONFOCUS';
+export const BLUR = 'WINDOW:EVENT:ONBLUR';

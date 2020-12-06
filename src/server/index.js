@@ -19,7 +19,7 @@ const bundlePath = path.resolve(dirname, 'dist', majorVersion, folderVersion, "j
 
 app.use("/scripts", express.static(bundlePath));
 
-app.get('/', (req, res) => {
+app.get('/*', (req, res) => {
     res.send(`
 <!DOCTYPE html>
 <html>

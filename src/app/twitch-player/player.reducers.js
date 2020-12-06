@@ -1,4 +1,4 @@
-
+import * as ActionTypes from './action-types.constants';
 function getDefaultState() {
     const DEFAULT_STATE = {
         channel: null,
@@ -19,21 +19,26 @@ const Player = (state = {}, action) => {
     const { type } = action;
 
     switch (type) {
-        case 'PLAYER:CREATE':
+        case ActionTypes.CREATE:
             const { player } = action;
 
             newState = { 
                 player
             }
             break;
-        case 'PLAYER:LOAD:CHANNEL':
+        case ActionTypes.LOAD_CHANNEL:
             const { channel, stream } = action;
             newState = {
                 channel,
                 stream
             }
             break;
-        case 'PLAYER:DESTROY':
+        case ActionTypes.UPDATE_STREAM:
+            newState = {
+                stream: action.stream
+            }
+            break;
+        case ActionTypes.DESTROY:
             newState = getDefaultState();
             break;
         default:

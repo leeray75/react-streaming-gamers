@@ -18,17 +18,20 @@ export default class AppRouter extends Component {
     }
 
     render() {
-        const { isAuthenticated, "auth-url": AUTH_URL, "auth-storage-key": AUTH_STORAGE_KEY } = this.props;
+        const { isAuthenticated, "auth-url": AUTH_URL, } = this.props;
 
         return (
-            <Router>
+            <Router basename="/">
                 <Header auth-url={AUTH_URL} />
                 <Switch>
                     <Route path="/login">
-                        {isAuthenticated ? <Redirect to="/" /> : <LoginPage auth-url={AUTH_URL} auth-storage-key={AUTH_STORAGE_KEY} />}
+                        {isAuthenticated ? <Redirect to="/home" /> : <LoginPage auth-url={AUTH_URL} />}
                     </Route>
-                    <Route path="/">
+                    <Route path="/home">
                         {isAuthenticated ? <HomePage /> : <Redirect to="/login" />}
+                    </Route>
+                    <Route>
+                        {isAuthenticated ? <Redirect to="/home" /> : <Redirect to="/login" />}
                     </Route>
                 </Switch>
 

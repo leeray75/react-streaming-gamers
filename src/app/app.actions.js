@@ -13,3 +13,4 @@ export const user = (data) => ({
 export const logout = () => ({
 	type: ActionTypes.LOGOUT
 })
+

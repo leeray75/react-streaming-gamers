@@ -16,7 +16,7 @@ class UsersFollows extends Component {
         return 100;
     }
     getFollows() {
-        console.log("[UsersFollows] api:", this.props.api);
+
         const params = {
             "from_ids": [this.props.user_id],
             "first": this.MAX_ITEMS
@@ -30,12 +30,13 @@ class UsersFollows extends Component {
         console.log("[UsersFollows] Updated:", this.props);
         if (props.user_id != null && props.follows == null) {
             this.getFollows()
-        } else if (props.follows != null && props.follows.length > 0 && prevProps.follows == null) {
+        } else if (props.follows != null && prevProps.follows == null) {
             const user_ids = props.follows.map(follow => {
                 return follow.to_id;
             })
             this.loadUsers(user_ids);
         }
+
 
     }
     componentDidMount() {

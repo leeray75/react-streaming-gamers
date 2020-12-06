@@ -1,3 +1,6 @@
+import * as FollowsActions from './action-types.constants';
+import * as WindowEventsActionTypes from '@leeray75/react-streaming-gamers/window-events/action-types.constants';
+import * as PlayerActionTypes from '@leeray75/react-streaming-gamers/twitch-player/action-types.constants';
 
 function getDefaultState() {
     const DEFAULT_STATE = {
@@ -14,26 +17,28 @@ const UsersFollows = (state = {}, action) => {
     const { type } = action;
 
     switch (type) {
-        case 'USERS:FOLLOWS:UPDATE':
+        case FollowsActions.UPDATE_FOLLOWS:
             const { follows } = action;
 
             newState = { 
                 follows
             }
             break;
-        case 'USERS:FOLLOWS:USERS':
+        case FollowsActions.UPDATE_USERS:
             const { users } = action;
             newState = {
                 users
             }
             break;
-        case 'USERS:FOLLOWS:STREAMS':
+        case FollowsActions.UPDATE_STREAMS:
             const { streams } = action;
             newState = {
                 streams
             }
             break;
-        case 'PLAYER:DESTROY':
+        // Reload Followers
+        case WindowEventsActionTypes.FOCUS:
+        case PlayerActionTypes.DESTROY:
             newState = {
                 follows: null
             }

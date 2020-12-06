@@ -1,17 +1,20 @@
-
+import * as ActionTypes from './action-types.constants';
 export const createPlayer = (player = null) => ({
-	type: 'PLAYER:CREATE',
+	type: ActionTypes.CREATE,
 	player
 })
 
 export const destroyPlayer = () => ({
-	type: 'PLAYER:DESTROY'
+	type: ActionTypes.DESTROY
 })
 export const loadChannel = (channel = null, stream = null) => ({
-	type: 'PLAYER:LOAD:CHANNEL',
+	type: ActionTypes.LOAD_CHANNEL,
 	channel, 
 	stream
 })
 
-
+export const updateStream = ( stream = null ) => ({
+	type: ActionTypes.UPDATE_STREAM,
+	stream
+})
 

@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Redirect,
-    Link
-} from "react-router-dom";
 import AppMiddleware from './app.middleware';
 import AppReducers from './app.reducers';
+import WindowEvents from './window-events';
 import { HomePage, LoginPage } from './pages';
 import Header from './common/header';
 import TwitchPlayer from './twitch-player';
@@ -28,13 +22,16 @@ export default class App extends Component {
         require('./react-streaming-gamers');
     }
 
+
     render() {
         return (
             <Provider store={this.store}>
-                <div className="react-streaming-gamers">
-                    <AppRouter auth-url={AUTH_URL} auth-storage-key={AUTH_STORAGE_KEY} />
-                </div>
-                <TwitchPlayer />
+                <WindowEvents window={window}>
+                    <div className="react-streaming-gamers">
+                        <AppRouter auth-url={AUTH_URL}  />
+                    </div>
+                    <TwitchPlayer />
+                </WindowEvents>
             </Provider>
         )
     }
